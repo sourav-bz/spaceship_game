@@ -2,11 +2,13 @@ mod spaceship;
 mod movement;
 mod debug;
 mod camera;
+mod asteroids;
 use bevy::prelude::*;
 use spaceship::SpaceshipPlugin;
 use movement::MovementPlugin;
 use debug::DebugPlugin;
 use camera::CameraPlugin;
+use asteroids::AsteroidPlugin;
 fn main(){
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.1, 0.0, 0.15)))
@@ -20,5 +22,6 @@ fn main(){
         .add_plugins(MovementPlugin)
         .add_plugins(CameraPlugin)
         .add_plugins(DebugPlugin)
+        .add_plugins(AsteroidPlugin)
         .run();
 }
