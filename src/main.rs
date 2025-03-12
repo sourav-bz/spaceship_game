@@ -4,6 +4,7 @@ mod debug;
 mod camera;
 mod asteroids;
 mod asset_loaders;
+mod collision_detection;
 use bevy::prelude::*;
 use spaceship::SpaceshipPlugin;
 use movement::MovementPlugin;
@@ -11,6 +12,8 @@ use debug::DebugPlugin;
 use camera::CameraPlugin;
 use asteroids::AsteroidPlugin;
 use asset_loaders::AssetLoadersPlugin;
+use collision_detection::CollisionDetectionPlugin;
+
 fn main(){
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.1, 0.0, 0.15)))
@@ -23,8 +26,9 @@ fn main(){
         .add_plugins(AssetLoadersPlugin)
         .add_plugins(SpaceshipPlugin)
         .add_plugins(MovementPlugin)
+        .add_plugins(CollisionDetectionPlugin)
         .add_plugins(CameraPlugin)
-        .add_plugins(DebugPlugin)
+        // .add_plugins(DebugPlugin)
         .add_plugins(AsteroidPlugin)
         .run();
 }
