@@ -1,12 +1,10 @@
-use bevy::ecs::query;
-use bevy::{prelude::*, transform}; 
+use bevy::prelude::*; 
 use std::ops::RangeInclusive;
 use rand::random_range;
 
 use crate::asset_loaders::SceneAssets;
 use crate::collision_detection::Collider;
 use crate::movement::{Acceleration, MovingObjectBundle, Velocity};
-
 
 const VELOCITY_SCALAR: f32 = 5.0;
 const ACCELERATION_SCALAR: f32 = 1.0;
@@ -15,7 +13,6 @@ const SPAWN_RANGE_Z: RangeInclusive<f32> = 0.0..=25.0;
 const SPAWN_TIME_SECONDS: f32 = 1.0;
 const ROTATE_SPEED: f32 = 2.5;
 const RADIUS: f32 = 2.5;
-
 
 #[derive(Component, Debug)]
 pub struct Asteroid;
