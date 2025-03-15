@@ -10,3 +10,9 @@ Where can I see and visualise all the commands flowing through the systems? like
 How are bundles made? why is it required? what are the things which can be included in it? and how does it get passed down to wherever it's going to?
 What are queries? and what are the sub fields structs which are accessed and available to use from queries?
 What is derive? when is it used? and why is it used? is it like interface in OOPs?
+
+## 15th march
+
+What's "fixedUpdate" schedule? and what is it used for? some example program or code for this.
+How do you transmit any data from one system to another? what's the centralised data management system?
+Running systems in parallel and one after the other, difficulties, problems and issues
