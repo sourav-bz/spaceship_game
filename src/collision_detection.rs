@@ -26,7 +26,7 @@ impl Plugin for CollisionDetectionPlugin {
         // app.add_systems(Update, collision_detection);
 
         app.add_systems(Update, collision_detection.in_set(InGameSet::CollisionDetection));
-        app.add_systems(Update, (handle_collisions::<Asteroid>, handle_collisions::<Spaceship>).in_set(InGameSet::DespawnEntities));
+        app.add_systems(Update, handle_collisions::<Asteroid>.in_set(InGameSet::DespawnEntities));
     }
 }
 
