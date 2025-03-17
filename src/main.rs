@@ -8,6 +8,7 @@ mod collision_detection;
 mod despawn;
 mod schedule;
 mod state;
+mod health;
 
 use bevy::prelude::*;
 use despawn::DespawnPlugin;

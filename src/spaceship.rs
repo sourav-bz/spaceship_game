@@ -1,7 +1,8 @@
 use bevy::{prelude::*, transform};
 
 use crate::asset_loaders::SceneAssets;
-use crate::collision_detection::Collider;
+use crate::collision_detection::{Collider, CollisionDamage};
+use crate::health::Health;
 use crate::movement::{Velocity, Acceleration, MovingObjectBundle};
 use crate::schedule::InGameSet;
 
@@ -13,6 +14,10 @@ const SPACESHIP_RADIUS: f32 = 5.0;
 const MISSILE_SPEED: f32 = 50.0;
 const MISSILE_FORWARD_SPAWN_SCALAR: f32 = 7.5;
 const MISSILE_RADIUS: f32 = 1.0;
+const SPACESHIP_HEALTH: f32 = 100.0;
+const SPACESHIP_COLLISION_DAMAGE: f32 = 100.0;
+const MISSILE_HEALTH: f32 = 1.0;
+const MISSILE_COLLISION_DAMAGE: f32 = 5.0;
 
 #[derive(Component, Debug)]
 pub struct Spaceship;
@@ -44,13 +49,18 @@ impl Plugin for SpaceshipPlugin{
 
 fn spawn_spaceship(mut commands: Commands, scene_assets: Res<SceneAssets>){
     let scene = scene_assets.spaceship.clone();
-    commands.spawn((MovingObjectBundle{
-        velocity: Velocity::new(Vec3::ZERO),
-        acceleration: Acceleration{value: Vec3::ZERO},
-        scene: SceneRoot(scene),
-        transform: Transform::from_translation(STARTING_TRANSLATION),
-        collider: Collider::new(SPACESHIP_RADIUS)
-    }, Spaceship));
+    commands.spawn((
+            MovingObjectBundle{
+            velocity: Velocity::new(Vec3::ZERO),
+            acceleration: Acceleration{value: Vec3::ZERO},
+            scene: SceneRoot(scene),
+            transform: Transform::from_translation(STARTING_TRANSLATION),
+            collider: Collider::new(SPACESHIP_RADIUS)
+        }, 
+        Spaceship,
+        Health::new(SPACESHIP_HEALTH),
+        CollisionDamage::new(SPACESHIP_COLLISION_DAMAGE)
+    ));
 }
 
 fn spaceship_movement(mut query: Query<(&mut Transform, &mut Velocity), With<Spaceship>>, keyboard_input: Res<ButtonInput<KeyCode>>, time: Res<Time>){
@@ -94,13 +104,18 @@ fn spaceship_weapon_controls(mut commands: Commands, query: Query<&Transform, Wi
     
     let scene = scene_assets.rock.clone();
     if keyboard_input.pressed(KeyCode::Space){
-        commands.spawn((MovingObjectBundle{
-            velocity: Velocity::new(-transform.forward() * MISSILE_SPEED),
-            acceleration: Acceleration::new(Vec3::ZERO),
-            scene: SceneRoot(scene),
-            transform: Transform::from_translation(transform.translation + -transform.forward() * MISSILE_FORWARD_SPAWN_SCALAR),
-            collider: Collider::new(MISSILE_RADIUS)
-        }, SpaceshipMissile));
+        commands.spawn((
+                MovingObjectBundle{
+                velocity: Velocity::new(-transform.forward() * MISSILE_SPEED),
+                acceleration: Acceleration::new(Vec3::ZERO),
+                scene: SceneRoot(scene),
+                transform: Transform::from_translation(transform.translation + -transform.forward() * MISSILE_FORWARD_SPAWN_SCALAR),
+                collider: Collider::new(MISSILE_RADIUS)
+            }, 
+            SpaceshipMissile,
+            Health::new(MISSILE_HEALTH),
+            CollisionDamage::new(MISSILE_COLLISION_DAMAGE),    
+        ));
     }
 }
 

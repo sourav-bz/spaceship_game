@@ -3,7 +3,8 @@ use std::ops::RangeInclusive;
 use rand::random_range;
 
 use crate::asset_loaders::SceneAssets;
-use crate::collision_detection::Collider;
+use crate::collision_detection::{Collider, CollisionDamage};
+use crate::health::Health;
 use crate::movement::{Acceleration, MovingObjectBundle, Velocity};
 use crate::schedule::InGameSet;
 
@@ -14,6 +15,8 @@ const SPAWN_RANGE_Z: RangeInclusive<f32> = 0.0..=25.0;
 const SPAWN_TIME_SECONDS: f32 = 1.0;
 const ROTATE_SPEED: f32 = 2.5;
 const RADIUS: f32 = 2.5;
+const ASTEROID_HEALTH: f32 = 80.0;
+const ASTEROID_COLLISION_DAMAGE: f32 = 35.0;
 
 #[derive(Component, Debug)]
 pub struct Asteroid;
@@ -53,13 +56,18 @@ fn spawn_asteroid(mut commands: Commands, mut spawn_timer: ResMut<SpawnTimer>, t
     let acceleration = random_unit_vector * ACCELERATION_SCALAR;
     
     let asteroid = scene_assets.asteroid.clone();
-    commands.spawn((MovingObjectBundle{
-        velocity: Velocity{value: velocity},
-        acceleration: Acceleration{value: acceleration},
-        scene: SceneRoot(asteroid),
-        transform: Transform::from_translation(translation),
-        collider: Collider::new(RADIUS),
-    }, Asteroid));
+    commands.spawn((
+        MovingObjectBundle{
+            velocity: Velocity{value: velocity},
+            acceleration: Acceleration{value: acceleration},
+            scene: SceneRoot(asteroid),
+            transform: Transform::from_translation(translation),
+            collider: Collider::new(RADIUS),
+        }, 
+        Asteroid,
+        Health::new(ASTEROID_HEALTH),
+        CollisionDamage::new(ASTEROID_COLLISION_DAMAGE)
+    ));
 }
 
 fn rotate_asteroids(mut query: Query<&mut Transform, With<Asteroid>>, time: Res<Time>){
