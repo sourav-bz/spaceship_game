@@ -16,3 +16,14 @@ What is derive? when is it used? and why is it used? is it like interface in OOP
 What's "fixedUpdate" schedule? and what is it used for? some example program or code for this.
 How do you transmit any data from one system to another? what's the centralised data management system?
 Running systems in parallel and one after the other, difficulties, problems and issues
+
+## 17th March
+
+Dig deeper into creating and getting events
+And look into how various states are working
+
+To-do:
+
+- Show asteroid kill score UI
+- Show spaceship health score UI
+- Restart the game only when pressed SPACE again
