@@ -7,6 +7,7 @@ mod asset_loaders;
 mod collision_detection;
 mod despawn;
 mod schedule;
+mod state;
 
 use bevy::prelude::*;
 use despawn::DespawnPlugin;
@@ -18,6 +19,7 @@ use camera::CameraPlugin;
 use asteroids::AsteroidPlugin;
 use asset_loaders::AssetLoadersPlugin;
 use collision_detection::CollisionDetectionPlugin;
+use state::StatePlugin;
 
 fn main(){
     App::new()
@@ -37,5 +39,6 @@ fn main(){
         .add_plugins(AsteroidPlugin)
         .add_plugins(DespawnPlugin)
         .add_plugins(SchedulePlugin)
+        .add_plugins(StatePlugin)
         .run();
 }
