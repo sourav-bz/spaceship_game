@@ -27,3 +27,7 @@ To-do:
 - Show asteroid kill score UI
 - Show spaceship health score UI
 - Restart the game only when pressed SPACE again
+
+### 28th march
+
+what is nalgebra package? what are it's applications and why should i use it?
