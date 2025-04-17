@@ -1,31 +1,31 @@
-mod spaceship;
-mod movement;
-mod debug;
-mod camera;
-mod asteroids;
 mod asset_loaders;
+mod asteroids;
+mod camera;
 mod collision_detection;
+mod debug;
 mod despawn;
-mod schedule;
-mod state;
 mod health;
+mod movement;
+mod schedule;
+mod spaceship;
+mod state;
 
+use asset_loaders::AssetLoadersPlugin;
+use asteroids::AsteroidPlugin;
 use bevy::prelude::*;
+use camera::CameraPlugin;
+use collision_detection::CollisionDetectionPlugin;
+use debug::DebugPlugin;
 use despawn::DespawnPlugin;
+use movement::MovementPlugin;
 use schedule::SchedulePlugin;
 use spaceship::SpaceshipPlugin;
-use movement::MovementPlugin;
-use debug::DebugPlugin;
-use camera::CameraPlugin;
-use asteroids::AsteroidPlugin;
-use asset_loaders::AssetLoadersPlugin;
-use collision_detection::CollisionDetectionPlugin;
 use state::StatePlugin;
 
-fn main(){
+fn main() {
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.1, 0.0, 0.15)))
-        .insert_resource(AmbientLight{
+        .insert_resource(AmbientLight {
             color: Color::default(),
             brightness: 750.0,
             ..default()
